@@ -1,21 +1,23 @@
 import { useState } from "react";
 
 interface TaskFormProps {
-  onSubmit: (title: string, description: string) => Promise<boolean>;
+  onSubmit: (title: string, description: string, dueDate?: string) => Promise<boolean>;
   loading: boolean;
 }
 
 export default function TaskForm({ onSubmit, loading }: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
-    const success = await onSubmit(title, description);
+    const success = await onSubmit(title, description, dueDate || undefined);
     if (success) {
       setTitle("");
       setDescription("");
+      setDueDate("");
     }
   };
 
@@ -33,6 +35,12 @@ export default function TaskForm({ onSubmit, loading }: TaskFormProps) {
         placeholder="Task description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        className="w-full rounded border p-3"
+      />
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
         className="w-full rounded border p-3"
       />
       <button

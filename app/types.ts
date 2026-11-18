@@ -5,6 +5,8 @@ export interface Task {
   title: string;
   description?: string;
   status: "pending" | "completed";
+  dueDate?: string;
+  priority?: "low" | "medium" | "high";
   createdAt?: string;
   updatedAt?: string;
 }

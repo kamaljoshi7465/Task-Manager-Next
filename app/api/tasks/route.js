@@ -67,6 +67,7 @@ export async function POST(request) {
     const task = await Task.create({
       title: body.title.trim(),
       description: body.description || "",
+      dueDate: body.dueDate ? new Date(body.dueDate) : undefined,
     });
 
     return NextResponse.json(
